@@ -45,11 +45,17 @@ namespace TemperatureConverter
                     continue;
                 }
                 
+                else if( !float.TryParse(parts[0], out float degree))
+                {
+                    System.Console.WriteLine("Invalid input. Please enter a numeric temperature.");
+                    continue;
+                }
+
                 float value = float.Parse(parts[0]);
                 string scale = parts[1];
                 Console.WriteLine($"Converted: {value} {scale} = {TempConvert(value, scale)}");      
             }
-            catch (FormatException ex)
+            catch (Exception ex)
             {
                  Console.WriteLine($"Exception :" + ex.Message);
             }
