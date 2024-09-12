@@ -19,11 +19,41 @@ namespace TemperatureConverter
         }
         public static void Main(string[] args)
         {
-            Console.WriteLine($"Welcome to Temperature Converter Example");
-            Console.WriteLine($"Enter a temperature and its unit (C or F):");
-            float value = Convert.ToSingle(Console.ReadLine());
-            string scale = Console.ReadLine() ?? ""; //avoiding nullable
-            Console.WriteLine($"Converted: {value} {scale} = {TempConvert(value, scale)}");
+            while (true)
+            {
+            try
+            {
+                Console.WriteLine($"Welcome to Temperature Converter Example");
+                Console.WriteLine($"Enter a temperature and its unit (C or F), or type 'Quit' to exit");
+                string input = Console.ReadLine() ?? ""; // avoiding nullable
+                string[] parts = input.Split(" ");
+                if (parts.Length >= 3)
+                {
+                    System.Console.WriteLine("Invalid input.");
+                    continue;
+                }
+                
+                if (parts[0].ToLower() == "quit")
+                {
+                    Console.WriteLine($"Program terminated.");
+                    break;
+                }
+                
+                else if(parts[1].ToUpper() != "F" && parts[1].ToUpper() != "C")
+                {
+                    System.Console.WriteLine("Invalid scale. Please enter 'C' for Celsius or 'F' for Fahrenheit.");
+                    continue;
+                }
+                
+                float value = float.Parse(parts[0]);
+                string scale = parts[1];
+                Console.WriteLine($"Converted: {value} {scale} = {TempConvert(value, scale)}");      
+            }
+            catch (FormatException ex)
+            {
+                 Console.WriteLine($"Exception :" + ex.Message);
+            }
+            }
         }
     }
 }
